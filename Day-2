@@ -1,4 +1,5 @@
-🗂️ Table: Employees
+Table: Employees
+
 id	name	salary	department	joining_date
 1	A	50000	HR	2020-01-10
 2	B	60000	IT	2019-03-15
