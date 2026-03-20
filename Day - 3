@@ -1,0 +1,74 @@
+📘 Day 3 – SQL Practice (JOINs + Aggregation + Subqueries)
+🗂️ Tables
+Employees
+id	name	department_id	salary
+1	A	1	50000
+2	B	2	60000
+3	C	1	55000
+4	D	2	70000
+5	E	3	45000
+Departments
+id	department_name
+1	HR
+2	IT
+3	Finance
+✅ Question 1
+
+Task:
+Get employee name and department name
+
+✔ Solution:
+SELECT e.name, d.department_name
+FROM Employees e
+JOIN Departments d
+ON e.department_id = d.id;
+✅ Question 2
+
+Task:
+Count employees in each department
+
+✔ Solution:
+SELECT d.department_name, COUNT(*) AS employee_count
+FROM Employees e
+JOIN Departments d
+ON e.department_id = d.id
+GROUP BY d.department_name;
+✅ Question 3
+
+Task:
+Average salary in each department
+
+✔ Solution:
+SELECT d.department_name, AVG(e.salary) AS avg_salary
+FROM Employees e
+JOIN Departments d
+ON e.department_id = d.id
+GROUP BY d.department_name;
+✅ Question 4
+
+Task:
+Department with highest average salary
+
+✔ Solution (Simple):
+SELECT d.department_name, AVG(e.salary) AS avg_salary
+FROM Employees e
+JOIN Departments d
+ON e.department_id = d.id
+GROUP BY d.department_name
+ORDER BY avg_salary DESC
+LIMIT 1;
+✅ Question 5
+
+Task:
+Employees earning more than their department average
+
+✔ Solution (Correlated Subquery):
+SELECT e.name, e.salary, d.department_name
+FROM Employees e
+JOIN Departments d
+ON e.department_id = d.id
+WHERE e.salary > (
+    SELECT AVG(e2.salary)
+    FROM Employees e2
+    WHERE e2.department_id = e.department_id
+);
